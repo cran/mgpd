@@ -12,4 +12,3 @@ potdat          = potdat[id>0,]
 potdat          = as.data.frame(potdat)
 potdat
 }
-

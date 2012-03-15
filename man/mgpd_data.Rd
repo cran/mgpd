@@ -1,33 +1,73 @@
 \name{mgpd_data}
 \alias{mgpd_data}
+%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Exceedances over given threshold vector for MGPD methods
+internal
 }
 \description{
-Selecting those observations from a data matrix which are over the threshold at least in one of the components. These exceedances are to be modelled 
-by multivariate Pareto distribution of Type II.
+internal use only
 }
 \usage{
 mgpd_data(xdat, thr = rep(0, 5))
 }
+%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{xdat}{
-Matrix of observations.
+%%     ~~Describe \code{xdat} here~~
 }
   \item{thr}{
-Vector of thresholds.
+%%     ~~Describe \code{thr} here~~
 }
+}
+\details{
+internal use only
+}
+\value{
+internal use only
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+internal use only
 }
 \author{
-Pal Rakonczai <rakonczai.p@gmail.com>
+P. Rakonczai
+}
+\note{
+internal use only
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+internal use only
 }
 \examples{
-data(DailyWind)
-demodata       = DailyWind[ , c(4, 6) ]
-nms            = names( demodata )
-thr            = apply( demodata, 2, quantile, prob=0.95 )
-potdata        = mgpd_data( demodata, thr=thr )
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
 
-plot( potdata[,1]+thr[1], potdata[,2]+thr[2], xlab=nms[1], ylab=nms[2], main="Exceedances" )
-abline( h=thr[2], v=thr[1] )
+## The function is currently defined as
+function (xdat, thr = rep(0, 5)) 
+{
+    n = dim(xdat)[1]
+    d = dim(xdat)[2]
+    if (!(d \%in\% c(2:5))) 
+        print("Error message: invalid dimension.")
+    else {
+        potdat = NULL
+        id = rep(0, n)
+        for (i in 1:d) potdat = cbind(potdat, xdat[, i] - thr[i])
+        for (i in 1:d) id = id + (potdat[, i] > 0)
+        potdat = potdat[id > 0, ]
+    }
+    potdat = as.data.frame(potdat)
+    potdat
+  }
 }
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ internal }
+%% \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

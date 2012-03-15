@@ -1,0 +1,87 @@
+\name{d22psiAlog}
+\alias{d22psiAlog}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+internal
+}
+\description{
+internal use only
+}
+\usage{
+d22psiAlog(t1, t2, alpha = 2, A1 = 0, A2 = 0, B1 = 2, B2 = 2, ...)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{t1}{
+%%     ~~Describe \code{t1} here~~
+}
+  \item{t2}{
+%%     ~~Describe \code{t2} here~~
+}
+  \item{alpha}{
+%%     ~~Describe \code{alpha} here~~
+}
+  \item{A1}{
+%%     ~~Describe \code{A1} here~~
+}
+  \item{A2}{
+%%     ~~Describe \code{A2} here~~
+}
+  \item{B1}{
+%%     ~~Describe \code{B1} here~~
+}
+  \item{B2}{
+%%     ~~Describe \code{B2} here~~
+}
+  \item{\dots}{
+%%     ~~Describe \code{\dots} here~~
+}
+}
+\details{
+internal use only
+}
+\value{
+internal use only
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+internal use only
+}
+\author{
+P. Rakonczai
+}
+\note{
+internal use only
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+internal use only
+}
+\examples{
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (t1, t2, alpha = 2, A1 = 0, A2 = 0, B1 = 2, B2 = 2, 
+    ...) 
+eval({
+    t1 <- t1
+    t2 <- t2
+    alpha <- alpha
+    A1 <- A1
+    A2 <- A2
+    B1 <- B1
+    B2 <- B2
+    .d22psiAlog
+  })
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ internal }
+%% \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

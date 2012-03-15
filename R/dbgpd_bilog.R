@@ -51,4 +51,3 @@ if(!error){
  }else stop("invalid parameter(s)")
 hxy
 }
-

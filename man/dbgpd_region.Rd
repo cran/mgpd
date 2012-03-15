@@ -1,53 +1,82 @@
 \name{dbgpd_region}
 \alias{dbgpd_region}
+%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Computing BGPD predction regions
+internal
 }
 \description{
-Computing prediction region (Hall and Tajvidi, 2000) for a given probability.  This region is bounded by a horizontal level curve
-of the BGPD density over which the integral of the density equals to the given probability. 
+internal use only
 }
 \usage{
-dbgpd_region(x,y,z,quant=c(.95,0.9,.75), ...)
+dbgpd_region(x, y, z, quant = c(0.95, 0.9, 0.75), ...)
 }
+%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x,y}{
-Vectors of grid coordinates, on which the BGPD density is evaluated.   
+  \item{x}{
+%%     ~~Describe \code{x} here~~
 }
-\item{z}{
-Matrix containing BGPD density values evaluated on a grid. Typically obtainable from \code{dbgpd}, see examples below.   
+  \item{y}{
+%%     ~~Describe \code{y} here~~
+}
+  \item{z}{
+%%     ~~Describe \code{z} here~~
 }
   \item{quant}{
-Vector of probabilities.
+%%     ~~Describe \code{quant} here~~
 }
- \item{...}{
-Further arguments to be passed.
+  \item{\dots}{
+%%     ~~Describe \code{\dots} here~~
 }
 }
-
-
+\details{
+internal use only
+}
+\value{
+internal use only
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
 \references{
-Rakonczai, P. (2011) Bivariate generalized Pareto distribution in practice: models and estimation. (submitted)
-
-Rakonczai, P. and Tajvidi, N. (2010) On prediction of bivariate extremes. \emph{International Journal of Intelligent Technologies and Applied Statistics} 3(2): 115-139.
-
-Hall, P. and Tajvidi, N. (2000) Prediction regions for bivariate extreme events. \emph{Aust. N. Z. J. Stat.} 46(1): 99-112.
+internal use only
 }
 \author{
-Pal Rakonczai <rakonczai.p@gmail.com>
+P. Rakonczai
+}
+\note{
+internal use only
 }
 
-\seealso{\code{\link{dbgpd}}, \code{\link{bgpd_fit}}}
+%% ~Make other sections like Warning with \section{Warning }{....} ~
 
+\seealso{
+internal use only
+}
 \examples{
-# prediction regions from given bgpd density
-x       = y = seq(  -4, 4,  0.02  )
-z       = outer(  x,  y,  dbgpd,  model="log",  dep=2 )
-log.reg = dbgpd_region( x,  y,  z )
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
 
-par(  mfrow=c(  1,  1 ) )
-contour(  log.reg$x,  log.reg$y,  log.reg$z,  levels=log.reg$q, drawlabels=FALSE, main="Prediction Regions",  col=c(1,3,4)  )
-abline( h=0,  v=0,  lty=2 )
-legend( "bottomleft", c(expression(gamma==0.95),  expression(gamma==0.9), expression(gamma==0.75)), lty=1,  col=c(1,3,4), title="Regions")  
+## The function is currently defined as
+function (x, y, z, quant = c(0.95, 0.9, 0.75), ...) 
+{
+    prec = 1000
+    sq = (x[2] - x[1]) * (y[2] - y[1])
+    one = sum(z) * sq
+    level = seq(quantile(z, 0.4, na.rm = TRUE), quantile(z, 0.9995, 
+        na.rm = TRUE), length.out = prec)
+    numint = rep(0, prec)
+    levelf = function(l) sum(z[z > l]) * sq
+    numint = sapply(level, levelf)/one
+    nq = rep(0, length(quant))
+    for (i in 1:length(quant)) nq[i] = level[numint <= quant[i]][1]
+    out = list(one, quant, nq, x, y, z)
+    names(out) = c("one", "prob", "q", "x", "y", "z")
+    out
+  }
 }
-
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ internal }
+%% \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

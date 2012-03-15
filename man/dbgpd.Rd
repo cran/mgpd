@@ -1,84 +1,126 @@
 \name{dbgpd}
 \alias{dbgpd}
+%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Density function for bivariate generalized Pareto distribution (of Type II) 
+internal
 }
 \description{
-Density function for BGPD of Type II. See Details below for further explanation on Type II.   
+internal use only
 }
 \usage{
-dbgpd(x, y, model = "log", mar1 = c(0, 1, 0.1), mar2 = c(0, 1, 0.1), dep = 2, a = 1, b = 1, asy = 0, ...)
+dbgpd(x, y, model = "log", mar1 = c(0, 1, 0.1), mar2 = c(0, 1, 0.1), dep = 2, a = 1, b = 1, asy = 0, p = 3, ...)
 }
+%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-Vector of values for the first component.
+%%     ~~Describe \code{x} here~~
 }
   \item{y}{
-Vector of values for the second component.
+%%     ~~Describe \code{y} here~~
 }
   \item{model}{
-Parametric model for the underlying dependence structure. The \code{log}, \code{neglog}, \code{taj}, \code{mix} are symmetric 
-and \code{psilog}, \code{psineglog}, \code{bilog}, \code{negbilog}, \code{ct} are asymmetric models.
+%%     ~~Describe \code{model} here~~
 }
-  \item{mar1,mar2}{
-Vectors of length three containing marginal parameters (location, scale and shape) of the underlying EVD model.
+  \item{mar1}{
+%%     ~~Describe \code{mar1} here~~
+}
+  \item{mar2}{
+%%     ~~Describe \code{mar2} here~~
 }
   \item{dep}{
-Value for the dependence parameter in the \code{log}, \code{neglog}, \code{psilog} and \code{psineglog} models.
+%%     ~~Describe \code{dep} here~~
 }
-  \item{a,b}{
-Further parameter values of \code{taj}, \code{bilog}, \code{negbilog} and \code{ct} models.
+  \item{a}{
+%%     ~~Describe \code{a} here~~
+}
+  \item{b}{
+%%     ~~Describe \code{b} here~~
 }
   \item{asy}{
-Asymmetry parameter in \code{psilog} and \code{psilog} models.
+%%     ~~Describe \code{asy} here~~
 }
- \item{...}{
-Further arguments to be passed.
+  \item{p}{
+%%     ~~Describe \code{p} here~~
+}
+  \item{\dots}{
+%%     ~~Describe \code{\dots} here~~
 }
 }
 \details{
-There are several (non-equivalent) definitions of MGPD in use, one is for exceedances over a threshold
-in at least one of the components (Type II) and another(s) for exceedances which are over
-the threshold in all components (Type I). Type II is implemented in \code{mgpd} according 
-to Rootzen and Tajvidi (2006), see \code{fbvpot} in \code{evd} package for Type I.
+internal use only
 }
 \value{
-Returns the value of the density.  
+internal use only
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+internal use only
 }
 \author{
-Pal Rakonczai <rakonczai.p@gmail.com>
+P. Rakonczai
+}
+\note{
+internal use only
 }
 
-\seealso{\code{\link{dbgpd_region}}, \code{\link{bgpd_fit}}}
+%% ~Make other sections like Warning with \section{Warning }{....} ~
 
+\seealso{
+internal use only
+}
 \examples{
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
 
-#1. Drawing density contours
-
-x=y=seq(-4,4,0.05)
-z=outer(x,y,dbgpd,model="log",dep=2)
-contour(x,y,z,drawlabel=FALSE,col="gray",main="BGPD density")
-abline(h=0,v=0,lty=2)
-# the following model is still the same, if asy=0
-z=outer(x,y,dbgpd,model="psilog",dep=2,asy=0)
-contour(x,y,z,add=TRUE,col=1,drawlabel=FALSE)
-# asymmetric models
-z=outer(x,y,dbgpd,model="psilog",dep=2,asy=0.3)
-contour(x,y,z,add=TRUE,col=4,drawlabel=FALSE)
-z=outer(x,y,dbgpd,model="psilog",dep=2,asy=-0.3)
-contour(x,y,z,add=TRUE,col=3,drawlabel=FALSE)
-legend("bottomleft",c(expression(psi==0.3),expression(psi==0),expression(psi==-0.3)),lty=1,col=c(4,1,3),title="Psi-logistic")  
-
-#2. Density images for couple of models 
-
-par(mfrow=c(2,2))
-z=outer(x,  y,  dbgpd,  model="bilog",    a=1/2,b=1/2)    # a bit slow
-image(x,y,z,main="Bilog")
-z=outer(x,  y,  dbgpd,  model="negbilog", a=1/2,b=1/2)    # a bit slow
-image(x,y,z,main="Negbilog")
-z=outer(x,  y,  dbgpd,  model="ct",       a=1/2,b=1/2)
-image(x,y,z,main="Coles-Tawn")
-z=outer(x,  y,  dbgpd_taj, a=2, b=0.1)
-image(x,y,z,main="Tajvidi's")
+## The function is currently defined as
+function (x, y, model = "log", mar1 = c(0, 1, 0.1), mar2 = c(0, 
+    1, 0.1), dep = 2, a = 1, b = 1, asy = 0, p = 3, ...) 
+{
+    dgpd = NULL
+    models = c("log", "psilog", "philog", "neglog", "psineglog", 
+        "phineglog", "bilog", "negbilog", "ct", "taj")
+    if (!(model \%in\% models)) 
+        stop(paste("'", model, "' is an unknown model.", sep = ""))
+    else {
+        if (model == "log") 
+            dbgpd = dbgpd_log(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep)
+        if (model == "psilog") 
+            dbgpd = dbgpd_psilog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep, asy = asy, p = p)
+        if (model == "philog") 
+            dbgpd = dbgpd_philog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep, asy = asy, p = p)
+        if (model == "neglog") 
+            dbgpd = dbgpd_neglog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep)
+        if (model == "psineglog") 
+            dbgpd = dbgpd_psineglog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep, asy = asy, p = p)
+        if (model == "phineglog") 
+            dbgpd = dbgpd_phineglog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep, asy = asy, p = p)
+        if (model == "bilog") 
+            dbgpd = dbgpd_bilog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep, a = a, b = b)
+        if (model == "negbilog") 
+            dbgpd = dbgpd_negbilog(x, y, mar1 = mar1, mar2 = mar2, 
+                dep = dep, a = a, b = b)
+        if (model == "ct") 
+            dbgpd = dbgpd_ct(x, y, mar1 = mar1, mar2 = mar2, 
+                a = a, b = b)
+        if (model == "taj") 
+            dbgpd = dbgpd_taj(x, y, mar1 = mar1, mar2 = mar2, 
+                a = a, b = b)
+    }
+    dbgpd
+  }
 }
-
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ internal }
+%% \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

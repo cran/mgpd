@@ -13,4 +13,3 @@ out               = list(one,quant,nq,x,y,z)
 names(out)        = c("one","prob","q","x","y","z")
 out
 }
-

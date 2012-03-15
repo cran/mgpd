@@ -52,4 +52,3 @@ if(min(1+gamx*(x-mux)/sigx)<0) loglik=mlmax
 if(min(1+gamy*(y-muy)/sigy)<0) loglik=mlmax
 loglik
 }
-
